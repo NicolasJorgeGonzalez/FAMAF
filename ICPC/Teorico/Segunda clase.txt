@@ -1,0 +1,7 @@
+[a/b] -> [a+b-1/b] -> divicion techo(hace la divicion entera y redoondea al numero mas cercano hacia arriba)
+
+Los int en c++, tienen un limite. -2^32, 2^31-1. Por lo que se usa el tipo long long
+
+typedef -> macro para comando (typedef long long ll)
+
+while(t--){} -> es lo mismo que un for, realiza ese codigo t veces hasta que llegue a 0
