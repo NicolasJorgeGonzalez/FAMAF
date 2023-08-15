@@ -1,0 +1,3 @@
+a) [(Triagulo, Rojo, 2),(Cuadrado, Rojo, 3),(Circulo, Rojo, 4)] [(Triagulo, Amarillo, 5),(Rombo, Verde,3),(Circulo, Rojo, 1)]
+b) [(Triagulo, Verde, 2),(Circulo, Blanco, 1),(Rombo, Amarillo, 4)] [(Cuadrado, Dorado, 7),(Rombo, Amarillo, 2),(Triagulo, Rojo, 3)]
+c) [(Triagulo, Rojo, 4),(Cuadrado, Verde, 2),(Triagulo, Rojo, 9)] [(Triagulo, Amarillo, 2),(Rombo, Rojo, 1),(Triagulo, Verde, 3)]
