@@ -1,27 +1,16 @@
-/*
-  @file main.c
-  @brief Main program function implementation
-*/
-/* First, the standard lib includes, alphabetically ordered */
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-
-/* Then, this project's includes, alphabetically ordered */
 #include "helpers.h"
 #include "sort.h"
 #include "player.h"
 
 #define MAX_PLAYERS 5000
 
-/**
- * @brief print usage help
- * @param[in] program_name Executable name
- */
-void print_help(char *program_name) {
-    /* Print the usage help of this program. */
+void print_help(char *program_name)
+{
     printf("Usage: %s <input file path>\n\n"
            "Sort an array given in a file in disk.\n"
            "\n"
@@ -35,19 +24,12 @@ void print_help(char *program_name) {
            program_name);
 }
 
-/**
- * @brief reads file path from command line
- *
- * @param[in] argc amount of command line arguments
- * @param[in] argv command line arguments
- *
- * @return An string containing read filepath
- */
-char *parse_filepath(int argc, char *argv[]) {
-    /* Parse the filepath given by command line argument. */
+char *parse_filepath(int argc, char *argv[])
+{
     char *result = NULL;
 
-    if (argc < 2) {
+    if (argc < 2)
+    {
         print_help(argv[0]);
         exit(EXIT_FAILURE);
     }
@@ -57,19 +39,11 @@ char *parse_filepath(int argc, char *argv[]) {
     return (result);
 }
 
-/**
- * @brief Main program function
- *
- * @param[in] argc amount of command line arguments
- * @param[in] argv command line arguments
- *
- * @return EXIT_SUCCESS when programs executes correctly, EXIT_FAILURE otherwise
- */
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     char *filepath = NULL;
     player_t atp[MAX_PLAYERS];
 
-    /* parse the filepath given in command line arguments */
     filepath = parse_filepath(argc, argv);
 
     /* parse the file to load de players */
@@ -91,7 +65,7 @@ int main(int argc, char *argv[]) {
         end = clock();
 
         /* cpu_time used to sort the array */
-        double used_cpu_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+        double used_cpu_time = ((double)(end - start)) / CLOCKS_PER_SEC;
 
         /* show the ordered array in the screen */
         atp_dump(atp, length);

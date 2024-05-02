@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "sort_helpers.h": "c"
-    }
+        "sort_helpers.h": "c",
+        "weather_utils.C": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
