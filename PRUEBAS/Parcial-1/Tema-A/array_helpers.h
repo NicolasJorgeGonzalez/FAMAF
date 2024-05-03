@@ -1,8 +1,3 @@
-/*
-  @file array_helpers.h
-  @brief defines array helpers methods. These methods operates over
-  multidimensional array of prices
-*/
 #ifndef _ARRAY_HELPERS_H
 #define _ARRAY_HELPERS_H
 #include "character.h"
@@ -38,10 +33,6 @@ unsigned int array_from_file(CharacterList array, const char *filepath);
  */
 float array_alive_mean_life(CharacterList array);
 
-/**
- * @brief Write the content of the array into stdout.
- * @param[in] array array to dump in stdout
- */
 void array_dump(CharacterList array);
 
 #endif

@@ -1,21 +1,11 @@
-/*
-  @file main.c
-  @brief Defines main program function
-*/
-
-/* First, the standard lib includes, alphabetically ordered */
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Then, this project's includes, alphabetically ordered */
 #include "array_helpers.h"
 
-/**
- * @brief print usage help
- * @param[in] program_name Executable name
- */
-void print_help(char *program_name) {
+void print_help(char *program_name)
+{
   /* Print the usage help of this program. */
   printf("Usage: %s <input file path>\n\n"
          "Load character data from a given file in disk.\n"
@@ -32,19 +22,13 @@ void print_help(char *program_name) {
          program_name);
 }
 
-/**
- * @brief reads file path from command line
- *
- * @param[in] argc amount of command line arguments
- * @param[in] argv command line arguments
- *
- * @return An string containing read filepath
- */
-char *parse_filepath(int argc, char *argv[]) {
+char *parse_filepath(int argc, char *argv[])
+{
   /* Parse the filepath given by command line argument. */
   char *result = NULL;
 
-  if (argc < 2) {
+  if (argc < 2)
+  {
     print_help(argv[0]);
     exit(EXIT_FAILURE);
   }
@@ -54,15 +38,8 @@ char *parse_filepath(int argc, char *argv[]) {
   return (result);
 }
 
-/**
- * @brief Main program function
- *
- * @param[in] argc amount of command line arguments
- * @param[in] argv command line arguments
- *
- * @return EXIT_SUCCESS when programs executes correctly, EXIT_FAILURE otherwise
- */
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   char *filepath = NULL;
 
   /* parse the filepath given in command line arguments */
@@ -78,9 +55,7 @@ int main(int argc, char *argv[]) {
   array_dump(array);
 
   /* calculate the mean life of all alive characters */
-  /*
-   * COMPLETAR EJ2
-   */
+  printf("La vida media de los caracteres es:%f\n", array_alive_mean_life(array));
 
   return (EXIT_SUCCESS);
 }

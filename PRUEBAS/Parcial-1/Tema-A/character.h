@@ -1,17 +1,12 @@
-/*
-  @file character.h
-  @brief Defines character information
-*/
-
 #ifndef _CHARACTER_H
 #define _CHARACTER_H
 
-#include <stdbool.h> 
+#include <stdbool.h>
 #include <stdio.h>
 
 #define CHARACTER_NAME_LENGTH 5
 
-#define EXPECTED_ATTRIBUTE_FORMAT /* COMPLETAR */
+#define EXPECTED_ATTRIBUTE_FORMAT " life: %u, strength: %u, agility: %u "
 
 typedef enum
 {
@@ -29,23 +24,30 @@ typedef enum
 
 typedef enum
 {
-    alice, mario, lenny, eliza, eddie, frank, nadia, oscar, bella, yoshi
+    alice,
+    mario,
+    lenny,
+    eliza,
+    eddie,
+    frank,
+    nadia,
+    oscar,
+    bella,
+    yoshi
 } name_t;
 
 #define CHARACTER_COUNT 10
 
-extern char* NAMES[];
+extern char *NAMES[];
 
-
-/** @brief Type used to represent character data.*/
 typedef struct _character
 {
-    name_t name;            // The name of the character
-    unsigned int life;      // life must be between [0, 100]
-    unsigned int strength;  // strength must be between [1, 10]
-    unsigned int agility;   // agility must be between [1, 10]
-    alignment_t alignment;  // alignment must be 'good' or 'evil'
-    bool alive;             // alive if life > 0
+    name_t name;           // The name of the character
+    unsigned int life;     // life must be between [0, 100]
+    unsigned int strength; // strength must be between [1, 10]
+    unsigned int agility;  // agility must be between [1, 10]
+    alignment_t alignment; // alignment must be 'good' or 'evil'
+    bool alive;            // alive if life > 0
 
 } Character;
 
@@ -78,6 +80,6 @@ Character character_from_file_line(FILE *file, name_t name, alignment_t alignmen
  * @param file pointer to a file containing a name string
  * @return a name_t value corresponding to the name tha was readed
  */
-name_t read_character_name(FILE*file);
+name_t read_character_name(FILE *file);
 
-#endif  // _CHARACTER_H
+#endif // _CHARACTER_H
