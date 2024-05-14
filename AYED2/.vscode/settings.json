@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "sort_helpers.h": "c",
-        "weather_utils.C": "cpp"
+        "weather_utils.C": "cpp",
+        "player.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
