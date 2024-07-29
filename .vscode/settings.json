@@ -1,8 +1,11 @@
 {
     "files.associations": {
+        "*.erd": "json",
+        "*.vuerd": "json",
         "iosfwd": "cpp",
         "string.h": "c",
         "character.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "random": "c"
     }
 }

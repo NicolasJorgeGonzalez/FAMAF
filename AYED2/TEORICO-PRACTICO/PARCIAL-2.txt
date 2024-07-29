@@ -1,0 +1,63 @@
+(EJERCICIO 1)
+
+K = porciones de helado
+N = total sabores
+
+type sabor: tuple
+    id: Nat
+    puntaje: Float
+    agua: Bool
+end tuple
+
+fun elegir_sabor(sabores_aux: set of sabor) ret resultado: sabor
+    var sabor_aux: sabor
+    var puntaje_max_agua: Float
+    var puntaje_max_no_agua: Float
+    var sabor_max_agua: sabor
+    var sabor_max_no_agua: sabor
+
+    puntaje_max_agua = -∞
+    puntaje_max_no_agua = -∞
+
+    for each sabor_aux in sabores_aux do
+        if (sabor_aux.agua == true && sabor_aux.puntaje >= puntaje_max_agua) then
+            sabor_max_agua = sabor_aux
+            puntaje_max_agua = sabor_aux.puntaje
+        fi
+
+        if (sabor_aux.agua == false && sabor_aux.puntaje >= puntaje_max_no_agua) then
+            sabor_max_no_agua = sabor_aux
+            puntaje_max_no_agua = sabor_aux.puntaje
+        fi
+    od
+
+    if (puntaje_max_agua > -∞) then
+        resultado = sabor_max_agua
+    else
+        resultado = sabor_max_no_agua
+    fi
+end fun
+
+fun helado(M: Nat, N: Nat, K: Nat, sabores: set of sabor) ret resultado: Float
+    var sabores_aux: set of sabor
+    var sabor_actual: sabor
+    var sabores_elegidos: Nat
+    var agua_elegidos: Nat
+
+    sabores_aux = set_copy(sabores)
+    sabores_elegidos = 0
+    agua_elegidos = 0
+    resultado = 0
+
+    do (sabores_elegidos < K && agua_elegidos < M) ->
+        sabor_actual = elegir_sabor(sabores_aux)
+        if sabor_actual.agua == true then
+            agua_elegidos = agua_elegidos + 1
+        fi
+        resultado = resultado + sabor_actual.puntaje
+        elim(sabores_aux, sabor_actual)
+        sabores_elegidos = sabores_elegidos + 1
+    od
+
+    set_destroy(sabores_aux)
+end fun

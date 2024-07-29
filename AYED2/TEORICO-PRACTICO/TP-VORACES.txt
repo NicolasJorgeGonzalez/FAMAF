@@ -1,0 +1,316 @@
+(EJERCICIO 1)
+
+type Objeto = tuple
+                    id: Nat
+                    value: Float
+                    weight: Float
+              end tuple
+
+type obj_Mochila = tuple
+                         obj: Objeto
+                         fract: Float
+
+fun select_obj(C: Set of Objeto) ret r: Objeto
+    var C_aux: Set of Objeto
+    var o: Objeto
+    var m: Float
+    
+    m = -∞
+    C_aux = set_copy(c)
+    
+    do (not is_empty_set(C_aux))
+        o = get(C_aux)
+        if(o.value/o.weight > m)
+            then m = o.value/o.weight
+            r = 0
+        fi
+        elim(C_aux,o)
+    od
+    set_destroy(C_aux)
+end fun
+
+fun mochila(W: Float, C: Set of Objeto) ret  L: list of obj_Mochila
+    var o_m : obj_Mochila
+    var resto : Float
+    var C_aux : Set of Objeto
+
+    S = empty_list()
+    C_aux = set_copy(C_aux)
+    resto = W
+
+    do (resto > 0) ->
+        o_m.obj = select_obj(C_aux)
+        if o_m.weight <= resto
+            then o_m.fract = 1.0
+                 resto = resto - o_m.weight
+                 add(S,o_m)
+                 elim(C_aux,o_m.obj)
+        else
+            elim(C_aux,o_m.obj)
+        fi
+    od
+    set_destroy(C_aux)
+end fun
+
+Con una mochila de capacidad 10, objetos de valor 12 11 8 y pesos 6 5 4
+el criterio elige al de peso 5 ya que cada kilo de ese objeto vale mas de 2, pero convenia los otros.
+
+(EJERCICIO 3)
+
+A = AUTONOMIA DEL AUTO
+l0 = PUNTO INICIO
+ln = PUNTO FINAL
+
+El algoritmo resta la distancia entre el punto donde estamos parados y la proxima localidad a la cantida de combustible que tenemos en el auto.
+Si es mayor a 0 avanza a la siguiente localidad, si es menor a 0 recarga combustible, se guarda en una lista y se suma 1 a la cantidad de veces que se recargo
+luego avanza a la siguiente localidad. Se repite el algoritmo.
+
+type resultado: tuple   
+                      paradas: list of Nat.
+                      recargas: Nat
+
+fun viaje(A: Float, D: array[1,N] of Float, L: array[1,N] of Nat) ret r: resultado
+    var tanque: Float
+    var loc_actual: Nat
+
+    resultado.paradas = empty_list()
+    resultado.recargas = 0
+    tanque = A 
+    loc_actual = 0
+
+    do (loc_actual != (N - 1) ) ->
+        tanque = D[loc_actual + 1] - tanque
+        if (tanque >= 0) //SI ES QUE PUEDO RECARGAR APENAS LLEGO
+            then loc_actual = loc_actual + 1
+        else
+            tanque = A
+            resultado.paradas = loc_actual
+            resultado.recarga = resultado.recarga + 1
+        fi
+        loc_actual = loc_actual + 1
+    od
+end fun
+
+(EJERCICIO 4)
+
+N = Cantidad de ballenas
+SN = Tiempo limite de vida
+T = Tiempo en  llevar una ballena mar adentro
+2*T = Tiempo entre rescate y rescate
+
+El algoritmo va a seleccionar como primera ballena la que menos tiempo de vida tenga, luego de rescatarla seleccionara de las ballenas que queden vivas a la que menos tiempo le quede.
+El grupo de seleccion se redujeria a las de tiempo mayor a 2 * T, que es el tiempo en ir y volver. Luego de seleccionarla volveran a repetir el mismo paso solo que el grupo se reducira
+nuevamente sumando 2 * T a la cantida de tiempo que llevan rescatando, teniendo en cuenta que este arranca en 0.
+
+type ballena: tuple
+                    id: Nat
+                    t_vida: Nat
+              end tuple
+ 
+fun elegir_ballena(S: set of ballena, T: Float ) ret resultado: ballena
+    var S_aux: set of ballena
+    var tiempo_minimo: Float
+    var ballena_selec: ballena
+
+    S_aux = set_copy(S)
+    tiempo_minimo = ∞
+
+    do (not is_empty_set) -> 
+        ballena_selec = get(S_aux)
+        if (ballena_selec.t_vida <= tiempo_minimo && ballena_selec.t_vida >=T)
+            then resultado = ballena_selec
+        fi
+        elim(S_aux, ballena_selec)
+    od
+    set_destroy(S_aux)
+end fun
+
+
+fun ballenas(ballenas: Set of ballena, T: Nat) ret resultado: list of ballena
+    var tiempo_rescate: Nat
+    var tiempo_transcurrido: Float
+    var ballena_actual: ballena
+
+    resultado = empty_list()
+    ballenas_rescatables = set_copy(ballenas)
+    tiempo_rescate = 2 * T
+    tiempo_transcurrido = 0.0
+
+    do (not is_empty_set(ballenas_rescatables)) ->
+        ballena_actual = elegir_ballena(ballenas_rescatables, tiempo_transcurrido)
+        add(resultado,ballena_actual)
+        elim(ballenas_rescatables,ballena_actual)
+        tiempo_transcurrido = tiempo_transcurrido + tiempo_rescate
+    od
+    set_destroy(ballenas_rescatables)
+end fun
+
+(EJERCICIO 5)
+
+type amigo: tuple
+                  id: Nat
+                  partida: Nat
+                  llegada: Nat
+            end tuple
+
+fun selec_amigo(S: set of amigo, T: Nat) ret resultado: amigo
+    var S_aux: set of amigo
+    var amigo_selec: Nat
+    var tiempo_minimo:Float
+
+    S_aux = set_copy(S)
+    tiempo_minimo = ∞
+
+    do (not is_empty_set(S_aux)) ->
+        amigo_selec = get(S_aux)
+        if(amigo_selec.llegada <= tiempo_minimo && amigo_selec.llegada >= T)
+            then resultado = amigo
+        fi
+        elim(S_aux, amigo_selec)
+    od
+    set_destroy(S_aux)
+end fun
+
+fun telefono (amigos: set of amigo) ret resultado: list of amigo
+    var amigos_disponibles: set of amigo
+    var amigo_actual: set of amigo
+    var tiempo_transcurrido: Nat
+
+    amigos_disponibles = set_copy(amigos)
+    
+    do (not is_empty_set(amigos_disponibles)) -> 
+        amigo_actual = selec_amigo(amigos_disponibles, tiempo_transcurrido)
+        add(resultado, amigo_actual)
+        elim(amigos_disponibles,amigo_actual)
+    od
+    set_destroy(amigos_disponibles)
+end fun
+
+(EJERCICIO 6)
+
+Voy a tener 2 indices, uno que comienza al final y uno que comienza al inicio. Mi criterio de seleccion va a ser el siguiente:
+Voy a elegir la pieza de panaderia que  cuyo tiempo minimo sea menor o igual a todos los tiempos maximos de las otras y voy a abrir el horno cuando se cumpla este tiempo minimo.
+Luego voy a hacer lo mismo con las facturas anteriores.
+
+type factura: tuple 
+    id: Nat
+    tiempo_minimo: Float
+    tiempo_maximo: Float
+end tuple
+
+type abrir_horno: tupla 
+    tiempo: list of Float
+    veces: Nat
+end tupla
+
+fun elegir_factura(S: list of factura) ret resultado: Float
+    var factura_elegida: factura
+    var tiempo_minimo: Float
+
+    tiempo_minimo = ∞
+
+    for cada factura in S ->
+        if factura.tiempo_maximo < tiempo_minimo then
+            factura_elegida = factura
+            tiempo_minimo = factura.tiempo_maximo
+        fi
+    od
+
+    return factura_elegida
+end fun
+
+fun panaderia(N: list of factura) ret resultado: abrir_horno
+    var facturas_disponibles: list of factura
+    var tiempo_transcurrido: Float
+    var factura_elegida: factura
+    var tiempos_apertura: list of Float
+    var veces_apertura: Nat
+
+    facturas_disponibles = list_copy(N)
+    tiempos_apertura = empty_list()
+    veces_apertura = 0
+
+    while not is_empty_list(facturas_disponibles) do
+        factura_elegida = elegir_factura(facturas_disponibles)
+        tiempo_apertura = factura_elegida.tiempo_minimo
+        add(tiempos_apertura, tiempo_apertura)
+        veces_apertura += 1
+
+        # Eliminar todas las facturas que puedan ser retiradas en esta apertura
+        i = 0
+        while i < length(facturas_disponibles) do
+            if facturas_disponibles[i].tiempo_minimo <= tiempo_apertura and tiempo_apertura <= facturas_disponibles[i].tiempo_maximo then
+                elim(facturas_disponibles, facturas_disponibles[i])
+            else
+                i += 1
+            fi
+        od
+    od
+
+    resultado = abrir_horno(tiempo: tiempos_apertura, veces: veces_apertura)
+    list_destroy(facturas_disponibles)
+    return resultado
+end fun
+
+(EJERCICIO 6)
+Como creterio de seleccion, vamos a sacar primero a los sobrevivientes que mas consumo de oxigeno tengan para lograr minimizar el consumo de oxigeno
+en el subarino logrando asi tener mas tiempo para poder rescatar a la mayoria de los sobrevivientes.
+
+type persona: tuple
+                    id: Nat 
+                    consumo: Float
+              end tuple
+
+
+fun consumo_x_min(sobrevivientes: set of persona, Tiempo_rescate: Float) ret resultado: Float
+    var sobreviviente_actual: persona
+    var S_aux: set of persona
+
+    S_aux = set_copy(sobrevivientes)
+    resultado = 0
+
+    do (not is_empty_set(S_aux))->
+        sobreviviente_actual = get(sobrevivientes)
+        resultado = resultado + ((sobreviviente_actual.consumo) * Tiempo_rescate)
+        elim(S_aux, sobreviviente_actual)
+    od
+    set_destroy(S_aux)
+end fun
+
+fun elegir_persona(sobrevivientes_disponibles: set of persona) ret resultado: persona
+    var S_aux: set of persona
+    var persona_actual: persona
+    var consumo_max: Float
+
+    S_aux = set_copy(sobrevivientes_disponibles)
+    consumo_max = -∞
+
+    do (not is_empty_set(S_aux)) -> 
+        persona_actual = get(S_aux)
+        if (persona_actual.consumo >= consumo_max)
+            then consumo_max = persona_actual.consumo
+                 resultado   = persona_actual
+        fi
+        elim(S_aux, persona_actual)
+    od
+    set_destroy(S_aux)
+end fun
+
+fun rescate(sobrevivientes: set of persona, Tiempo_rescate: Float, C: Float) ret resultado: list of persona
+    var sobrevivientes_disponibles: set of persona
+    var oxigeno_restante: Float
+    var sobreviviente_actual: persona
+    var consumo: Float
+
+    sobrevivientes_disponibles = set_copy(sobrevivientes)
+    oxigeno_restante = C
+
+    do (oxigeno_restante != 0) -> 
+        sobreviviente_actual = elegir_persona(sobrevivientes_disponibles)
+        add(resultado, sobreviviente_actual)
+        elim(sobrevivientes_disponibles, sobreviviente_actual)
+        oxigeno_restante = oxigeno_restante - consumo_x_min(sobrevivientes_disponibles, Tiempo_rescate)
+    od
+    set_destroy(sobrevivientes_disponibles)
+end fun
+

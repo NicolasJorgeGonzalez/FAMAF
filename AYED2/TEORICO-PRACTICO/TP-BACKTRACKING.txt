@@ -1,0 +1,94 @@
+(EJERCICIO 3)
+
+type pedido: tuple
+                   id: Nat
+                   importe: Float
+                   harina: Float
+            end tuple
+
+fun panaderia(pedidos: set of pedido, H: Float) ret resultado: Float
+    var pedido_seleccionado: pedido
+    var pedidos_aux: set of pedido
+
+    resultado = 0
+    if (H == 0 || is_empty_set(pedidos)) then resultado = 0
+    else pedidos_aux = set_copy(pedidos)
+         pedido_seleccionado = get(pedidos)
+         elim(pedidos_aux, pedido_seleccionado)
+         if (pedido_seleccionado.harina <= H) then resultado = max(panaderia(pedidos_aux,H), pedido_seleccionado.importe + (panaderia(pedidos, H - pedido_seleccionado.harina)))
+         else resultado = panaderia(pedidos_aux, H)
+         fi
+    fi
+    set_destroy(pedidos_aux)
+end fun
+
+(EJERCICIO 4)
+
+type objeto: tuple 
+                   valor: Float
+                   peso: Float
+             end tuple
+
+fun globo(objetos: set of objeto, P: Float) ret resultado: Float
+    var objeto_actual: objeto
+    var objetos_aux: set of objeto
+
+    resultado = 0
+    if (P == 0) then resultado = 0
+    else if (is_empty_set(objetos)) then resultado = ∞
+    else objetos_aux = set_copy(objetos)
+         objeto_actual = get(objetos)
+         elim(objetos_aux, objeto_actual)
+         if (objeto_actual.peso <= P) then resultado = min(globo(objetos_aux,P), objeto_actual.valor + (globo(objetos_aux, P - objeto_actual.peso)))
+         else resultado = globo(objetos_aux,P)
+         fi
+    fi
+    set_destroy(objetos_aux)
+od
+
+(EJERCICIO 5)
+
+type amigo: tuple
+                  id: Nat
+                  partida: Nat
+                  llegada: Nat
+                  dinero: Float
+            end tuple
+
+fun telefono(amigos: set of amigo) ret resultado: Float
+    var amigos_aux: set of amigo
+    var amigo_actual: amigo
+
+    resultado = 0
+    if (is_empty_set(amigos)) then resultado = 0
+    else amigos_aux = set_copy(amigos)
+         amigo_actual = get(amigos)
+         elim(amigos_aux, amigo_actual)
+         if (amigo_actual.)
+
+        
+(EJERCICIO 6)
+
+type pedido: tuple  
+                   id: Nat
+                   valor: Float
+                   costo_A: Float
+                   costo_B: Float
+             end tuple
+
+fun artesano (pedidos: set of pedido; A: Float, B: Float) ret resultado: Float
+    var pedido_actual: pedido
+    var pedidos_aux: set of pedido
+
+    resultado = 0
+    if (is_empty_set(pedidos)) then resultado = 0
+    else if (A == 0 && B == 0) then resultado = 0
+    else pedidos_aux = set_copy(pedidos)
+         pedido_actual = get(pedidos)
+         elim(pedidos_aux, pedido_actual)
+         if (pedido_actual.costo_A <= A && pedido_actual.costo_B <= B) then resultado = max(artesano(pedidos_aux, A, B), pedido_actual.valor + (artesano(pedidos_aux, A - pedido_actual.costo_A, B - pedido_actual.costo_B)))
+         else resultado = artesano(pedidos_aux, A, B)
+         fi
+    fi
+    set_destroy(pedidos_aux)
+od

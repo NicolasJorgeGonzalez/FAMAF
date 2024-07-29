@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "stack.h"
 
-#define INITIAL_CAPACITY
+#define INITIAL_CAPACITY 1
 
 struct _s_stack
 {
@@ -18,10 +18,20 @@ bool invrep(stack s)
 
 stack stack_empty()
 {
-    stack my_stack = (stack)malloc(sizeof(struct _s_stack));
-    my_stack->elems = (stack_elem *)malloc(INITIAL_CAPACITY * sizeof(stack_elem));
-    my_stack->size = 0;
-    my_stack->capacity = INITIAL_CAPACITY;
+    stack s = (stack)malloc(sizeof(struct _s_stack));
+    s->elems = (stack_elem *)malloc(INITIAL_CAPACITY * sizeof(stack_elem));
+    s->size = 0;
+    s->capacity = INITIAL_CAPACITY;
+
+    assert(invrep(s) && stack_is_empty(s));
+    return s;
+}
+
+bool stack_is_empty(stack s)
+{
+    assert(invrep(s));
+
+    return s->size == 0;
 }
 
 stack stack_push(stack s, stack_elem e)
@@ -41,5 +51,71 @@ stack stack_push(stack s, stack_elem e)
     s->size++;
 
     assert(invrep(s) && !stack_is_empty(s));
+    return s;
+}
+
+stack stack_pop(stack s)
+{
+    assert(invrep(s) && !stack_is_empty(s));
+
+    s->elems[s->size] = 0;
+    s->size--;
+
+    assert(invrep(s));
+    return s;
+}
+
+unsigned int stack_size(stack s)
+{
+    assert(invrep(s));
+
+    unsigned int size = 0u;
+
+    if (!stack_is_empty(s))
+    {
+        size = s->size;
+    }
+
+    return size;
+}
+
+stack_elem stack_top(stack s)
+{
+    assert(invrep(s) && !stack_is_empty(s));
+
+    return s->elems[s->size - 1];
+}
+
+stack_elem *stack_to_array(stack s)
+{
+    assert(invrep(s));
+    stack_elem *a = NULL;
+    unsigned int size = stack_size(s);
+
+    if (size > 0)
+    {
+        a = calloc(size, sizeof(stack_elem));
+
+        for (unsigned int i = 0u; i < size; ++i)
+        {
+            a[i] = s->elems[i];
+        }
+    }
+
+    assert(invrep(s));
+    return a;
+}
+
+stack stack_destroy(stack s)
+{
+    assert(invrep(s));
+
+    free(s->elems);
+    s->elems = NULL;
+
+    free(s);
+    s = NULL;
+
+    assert(s == NULL);
     return s;
 }
