@@ -1,0 +1,104 @@
+Comandos Básicos
+
+cat (concatenate):
+Muestra el contenido de un archivo o varios archivos concatenados.
+Ejemplo: cat archivo.txt mostrará el contenido de archivo.txt en la terminal.
+
+grep (global regular expression print):
+Busca patrones dentro de archivos o de la entrada estándar.
+Ejemplo: grep "texto" archivo.txt buscará y mostrará las líneas que contienen "texto" en archivo.txt.
+
+Opciones Comunes
+
+-i: Ignora mayúsculas y minúsculas.
+grep -i "error" archivo.txt: Busca "error", "Error", "ERROR", etc.
+
+-v: Invertir la coincidencia; muestra las líneas que no coinciden con el patrón.
+grep -v "error" archivo.txt: Muestra todas las líneas que no contienen "error".
+
+**-r o -R: Busca recursivamente en directorios.
+grep -r "error" /var/log/: Busca "error" en todos los archivos dentro de /var/log/.
+
+-l: Muestra solo los nombres de los archivos que contienen el patrón.
+grep -l "error" *.txt: Muestra los archivos que contienen "error".
+
+-n: Muestra los números de línea junto con las líneas coincidentes.
+grep -n "error" archivo.txt: Muestra las líneas que contienen "error" junto con sus números de línea.
+
+-c: Muestra el número de líneas que coinciden con el patrón.
+grep -c "error" archivo.txt: Cuenta cuántas veces aparece "error".
+
+-o: Muestra solo la parte de la línea que coincide con el patrón.
+grep -o "error[0-9]*" archivo.txt: Muestra solo las coincidencias de "error" seguido de números.
+
+-E: Activa las expresiones regulares extendidas.
+grep -E "error|warning" archivo.txt: Busca "error" o "warning".
+
+-q: Silencioso; solo devuelve el código de estado (0 si se encontró una coincidencia).
+grep -q "error" archivo.txt: No muestra salida, solo devuelve éxito si encuentra "error".
+
+-w: Coincide solo palabras completas.
+grep -w "error" archivo.txt: Busca "error" como palabra completa, no como parte de otra palabra.
+
+sort:
+Ordena las líneas de un archivo o de la entrada estándar.
+Ejemplo: sort archivo.txt ordenará las líneas de archivo.txt alfabéticamente.
+
+head:
+Muestra las primeras líneas de un archivo o de la entrada estándar.
+Ejemplo: head archivo.txt mostrará las primeras 10 líneas de archivo.txt (por defecto).
+
+tail:
+Muestra las últimas líneas de un archivo o de la entrada estándar.
+Ejemplo: tail archivo.txt mostrará las últimas 10 líneas de archivo.txt (por defecto).
+
+-n +numero -> muestra el texto desde la linea que indicamos con el numero
+
+cut:
+El comando cut se usa para extraer secciones de cada línea de un archivo. Para trabajar con archivos .csv, puedes usar la opción -d para definir el delimitador (en este caso, una coma) y la opción -f para seleccionar la columna que te interesa.
+-c 1-5: Indica que se deben seleccionar los caracteres del 1 al 5. Puedes ajustar los números según el rango de caracteres que desees mostrar.
+
+wc:
+El comando wc se puede utilizar de las siguientes maneras:
+wc [opciones] [archivo]
+Si no se especifican opciones, wc muestra por defecto el número de líneas, palabras y caracteres del archivo o entrada.
+
+tr:
+El comando tr en Unix/Linux se utiliza para traducir, sustituir o eliminar caracteres de la entrada estándar. Es una herramienta poderosa y flexible que permite realizar operaciones sencillas de transformación de texto.
+
+tr [opciones] SET1 [SET2]
+
+SET1: Es el conjunto de caracteres que deseas traducir, reemplazar o eliminar.
+SET2: Es el conjunto de caracteres que reemplazarán a los de SET1. Si SET2 no se proporciona, tr usará solo SET1 para la operación (como eliminar caracteres).
+
+
+Conectores de Comandos
+
+; (punto y coma):
+Permite ejecutar varios comandos secuencialmente, sin importar si los anteriores fallaron o no.
+Ejemplo: comando1; comando2 ejecutará comando1 y luego comando2.
+
+&&:
+Ejecuta el segundo comando solo si el primero tuvo éxito.
+Ejemplo: comando1 && comando2 solo ejecutará comando2 si comando1 fue exitoso (código de salida 0).
+
+||:
+Ejecuta el segundo comando solo si el primero falló.
+Ejemplo: comando1 || comando2 ejecutará comando2 si comando1 falló (código de salida distinto de 0).
+Pipes y Redirecciones
+
+| (pipe):
+Redirige la salida de un comando como entrada para otro comando.
+Ejemplo: cat archivo.txt | grep "texto" buscará "texto" en la salida del comando cat archivo.txt.
+
+> (redirección de salida):
+Redirige la salida de un comando a un archivo, sobrescribiendo su contenido si existe.
+Ejemplo: echo "Hola" > archivo.txt escribirá "Hola" en archivo.txt.
+
+>> (redirección de salida, modo de añadir):
+Similar a >, pero añade la salida al final del archivo sin sobrescribirlo.
+Ejemplo: echo "Hola" >> archivo.txt añadirá "Hola" al final de archivo.txt.
+
+< (redirección de entrada):
+Redirige el contenido de un archivo como entrada de un comando.
+Ejemplo: sort < archivo.txt ordenará las líneas de archivo.txt.
