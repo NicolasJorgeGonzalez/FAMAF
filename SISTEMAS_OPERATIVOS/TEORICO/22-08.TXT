@@ -1,0 +1,16 @@
+TSS
+
+p0 p1
+------- Aisla
+SO
+_______ Comunica
+HW
+
+Concurrencia
+Persistencia
+
+CELERON
+
+DOS
+
+Bomba Core
