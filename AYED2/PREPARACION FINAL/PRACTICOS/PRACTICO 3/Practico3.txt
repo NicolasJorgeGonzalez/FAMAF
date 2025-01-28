@@ -1,0 +1,21 @@
+(2)
+fun tiene_cima (in a:array[1..N] of nat) ret tiene : bool
+    var cima : nat
+    
+    tiene := true
+    cima := 0
+
+    for i := 2 to n do
+        if (a[i - 1] > a[i]) then
+            cima := i - 1
+        fi
+    od
+    for j := cima +1 to n do
+        if (a[j] > a[j - 1]) then
+            tiene := false
+        fi
+    od
+    if (cima == 0) then
+        tiene_cima := false
+    fi
+end fun

@@ -1,0 +1,41 @@
+(1)(2)
+
+(A)
+proc todo_cero (out a:[1,...,n] of nat)
+    for i := 1 to n do
+        a[i] := 0
+    od
+end proc
+
+(B)
+proc prim_nat (out a:[1,...,n] of nat)
+    for i := 1 to n do
+        a[i] := i
+    od
+end proc
+
+(C)
+proc prim_nat_imp (out a:[1,...,n] of nat)
+    for i := 1 to n do
+        a[i] := 2i - 1 
+    od
+end proc
+
+(D)
+proc inc_imp (in/out a:[1,...,n] of nat)
+    for i := 1 to n do
+        if (i mod 2) == 1 then
+            a[i] = a[i] + 1
+        fi
+    od
+end proc
+
+(3)
+fun is_sorted (in a:[1,...,n] of nat) ret is_sorted : bool
+    is_sorted := true
+    for i := 2 to n do
+        if a[i] < a[i - 1] then
+            is_sorted := false
+        fi
+    od
+end fun

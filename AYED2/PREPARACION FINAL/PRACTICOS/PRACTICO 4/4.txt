@@ -1,0 +1,15 @@
+proc swap_pointers (in p,q : pointer to int)
+    var aux : int
+
+    aux := *p
+    *p := *q
+    *q := aux
+end proc
+
+proc swap_pointers_2 (inout p, q : pointer to int)
+    var aux : pointer to int
+
+    aux := p
+    p := q
+    q := aux
+end proc

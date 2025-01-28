@@ -1,0 +1,87 @@
+(1)
+fun min_elemen (in a:array[1..N,1..M] of int) ret min : int
+    min := a[1,1]
+    for i := 1 to N do
+        for j := 1 to M do
+            if (a[i,j] < min) then
+                min := a[i,j]
+            fi
+        od
+    od
+end fun
+
+(2)
+fun TempMin (in med:array[1980..2016,enero..diciembre,1..28,Temp..Prec] of nat) ret min : nat 
+    min := med[1980,enero,1,TempMin]
+    for i := 1980 to 2016 do
+        for j := enero to diciembre do
+            for k := 1 to 28 do
+                if (med[i, j, k, TempMin] < min) then
+                    min := med[i, j, k, TempMin]
+                fi
+            od
+        od
+    od
+end fun
+
+(b)
+fun TempMax (in med: array[1980..2016, enero..diciembre, 1..28, Temp..Prec] of nat) ret max: array[1980..2016] of tuple (year: nat, temp_max: nat)
+    for i := 1980 to 2016 do
+        max_temp := med[i, enero, 1, TempMax]
+        for j := enero to diciembre do
+            for k := 1 to 28 do
+                if (med[i, j, k, TempMax] > max_temp) then
+                    max_temp := med[i, j, k, TempMax]
+                fi
+            od
+        od
+        max[i] := (year: i, temp_max: max_temp)
+    od
+end fun
+
+fun PrecMax (in med: array[1980..2016, enero..diciembre, 1..28, Temp..Prec] of nat) ret max: array[1980..2016] of tuple (year: nat, month: nat)
+    for i := 1980 to 2016 do
+        max_prec := 0
+        max_month := enero
+
+        for j := enero to diciembre do
+            for k := 1 to 28 do
+                if (med[i, j, k, Prec] > max_prec) then
+                    max_prec := med[i, j, k, Prec]
+                    max_month := j
+                fi
+            od
+        od
+
+        max[i] := (year: i, month: max_month)
+    od
+end fun
+
+(3)
+type result = tuple
+                age : nat
+                weigth : nat
+              end tuple
+
+fun avg (in a:array[1..N] of person) ret avg_array : result
+    var avg_age : nat
+    var avg_weigth : nat
+
+    avg_age := 0
+    avg_weigth := 0
+
+    for i := 1 to N do
+        avg_age := avg_age + a[i].age
+        avg_weigth := avg_weigth + a[i].weigth
+    od
+
+    avg_age := avg_age / N
+    avg_weigth := avg_weigth / N
+
+    avg_array := (avg_age, avg_weigth)
+
+end fun
+
+proc selection_sort (in/out a:array[1..N] of person)
+    
+end proc

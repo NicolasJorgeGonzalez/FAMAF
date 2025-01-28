@@ -1,0 +1,24 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "assert.h": "c",
+        "stdlib.h": "c",
+        "array": "c",
+        "*.tcc": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "memory": "c",
+        "optional": "c",
+        "string_view": "c",
+        "ostream": "c",
+        "streambuf": "c",
+        "functional": "c",
+        "tuple": "c",
+        "sort_helpers.h": "c",
+        "random": "c",
+        "stdio.h": "c"
+    },
+    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling"
+    ]
+}
