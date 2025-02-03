@@ -1,4 +1,4 @@
-/*
+    /*
   @file main.c
   @brief Defines main program function
 */

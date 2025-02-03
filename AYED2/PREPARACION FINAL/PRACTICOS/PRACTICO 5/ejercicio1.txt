@@ -1,0 +1,60 @@
+fun index(L:List of T, N: nat) ret e: T
+    var i: nat
+    var p: pointer to (Node of T)
+    i := 1
+    p := L
+    do(i != N) then
+        p := p->next
+        i := i + 1
+    od
+    e := p->elem
+end fun
+
+proc take(in/out L: List of T, in N: nat)
+    var i: nat
+    var p: pointer to (Node of T)
+    i := 1
+    p := L
+    do(i != N) then
+        p := p->next
+        i := i + 1
+    od
+    p->next := null
+end proc
+
+/* En caso de que no este la precondicion (length(l) > n)  */
+proc take(in/out L: List of T, in N: nat)
+    var i: nat
+    var p, temp: pointer to (Node of T)
+    i := 1
+    p := L
+
+    if(length(l) < N) then
+        do (p != null) then
+            temp := p->next  // Guardar referencia al siguiente nodo
+            free(p)           // Liberar el nodo actual
+            p := temp         // Avanzar al siguiente nodo
+        od
+        L := null  // Asegurar que la lista queda vacía
+
+    else 
+        do(i != N) then
+            p := p->next
+            i := i + 1
+        od
+        p->next := null
+    fi
+end proc
+
+proc add_at(in/out L:List of T, in N: nat, in E: T)
+    var list_aux: List of T
+    var i: nat
+
+    list_aux := copy(L)
+
+    drop(list_aux, N - 1)
+    addl(E, list_aux)
+
+    take(L, N - 1)
+    concat(L, list_aux)
+end proc

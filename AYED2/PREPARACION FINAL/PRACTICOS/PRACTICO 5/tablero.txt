@@ -1,0 +1,171 @@
+/*spec with tuple of counters*/
+spec Tablero where
+
+    type Tablero: tuple
+                    A: Counter
+                    B: Counter
+                end tuple
+
+    constructors
+
+        fun init() ret T: Tablero
+            T->A := init()
+            T->B := init()
+        end fun
+
+        proc incr_A(in/out T: Tablero)
+            incr(T->A)
+        end proc
+
+        proc incr_B(in/out T: Tablero)
+            incr(T->B)
+        end proc
+
+    destroy
+        proc destroy(in T: Tablero)
+
+    operators
+
+        fun is_init(T: Tablero) ret B: Bool
+            B := ((T->A = 0) && (T->B = 0))
+        end fun
+
+        fun is_init_A(T: Tablero) ret B: Bool
+            B := (T->A = 0)
+        end fun
+
+        fun is_init_B(T: Tablero) ret B: Bool
+            B := (T->B = 0)
+        end fun
+
+        fun is_win_A(T: Tablero) ret B: Bool
+            B := (T->A > T->B)
+        end fun
+
+        fun is_win_B(T: Tablero) ret B: Bool
+            B := (T->A < T->B)
+        end fun
+
+        fun is_tie(T: Tablero) ret B: Bool
+            B := (T->A = T->B)
+        end fun
+
+        proc incr_n_A(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                incr(T->A)
+            od
+        end proc
+
+        proc incr_n_B(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                incr(T->B)
+            od
+        end proc
+
+        proc decr_n_A(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                if (not is_init(T->A)) 
+                then
+                    decr(T->A)
+                else
+                    break
+                fi
+            od
+        end proc
+
+        proc decr_n_A(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                if (not is_init(T->B)) 
+                then
+                    decr(T->B)
+                else
+                    break
+                fi
+            od
+        end proc
+
+/*spec with tuple of nats*/
+spec Tablero where
+
+    type Tablero: tuple
+                    A: nat
+                    B: nat
+                end tuple
+
+    constructors
+
+        fun init() ret T: Tablero
+            T->A := 0
+            T->B := 0
+        end fun
+
+        proc incr_A(in/out T: Tablero)
+            T->A := (T->A + 1)
+        end proc
+
+        proc incr_B(in/out T: Tablero)
+            T->B := (T->B + 1)
+        end proc
+
+    destroy
+        proc destroy(in T: Tablero)
+
+    operators
+
+        fun is_init(T: Tablero) ret B: Bool
+            B := ((T->A = 0) && (T->B = 0))
+        end fun
+
+        fun is_init_A(T: Tablero) ret B: Bool
+            B := (T->A = 0)
+        end fun
+
+        fun is_init_B(T: Tablero) ret B: Bool
+            B := (T->B = 0)
+        end fun
+
+        fun is_win_A(T: Tablero) ret B: Bool
+            B := (T->A > T->B)
+        end fun
+
+        fun is_win_B(T: Tablero) ret B: Bool
+            B := (T->A < T->B)
+        end fun
+
+        fun is_tie(T: Tablero) ret B: Bool
+            B := (T->A = T->B)
+        end fun
+
+        proc incr_n_A(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                T->A := (T->A + 1)
+            od
+        end proc
+
+        proc incr_n_B(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                T->B := (T->B + 1)
+            od
+        end proc
+
+        proc decr_n_A(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                if (not is_init(T->A)) 
+                then
+                    T->A := (T->A - 1)
+                else
+                    break
+                fi
+            od
+        end proc
+
+        proc decr_n_A(in/out T: Tablero, in N: nat)
+            for i := 1 to N do
+                if (not is_init(T->B)) 
+                then
+                    T->B := (T->B - 1)
+                else
+                    break
+                fi
+            od
+        end proc

@@ -3,6 +3,10 @@
         "array": "c",
         "stdbool.h": "c",
         "stdlib.h": "c",
-        "assert.h": "c"
-    }
+        "assert.h": "c",
+        "array_helpers.h": "c"
+    },
+    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling"
+    ]
 }
