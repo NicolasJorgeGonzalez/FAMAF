@@ -1,0 +1,98 @@
+spec Set of T where
+
+    type Set of T: List of T
+
+    constructors 
+
+        fun init() ret S: Set of T
+            S := empty()
+        end fun
+
+        proc adde(in E: T, in/out S: Set of T)
+            addl(E, S)
+        end proc
+
+    destroy
+
+        proc destroy(in/out S: Set of T)
+
+    operators
+
+        fun it_belongs(S: Set of T, E: T) ret B: Bool
+            var p: pointer to (Node of T)
+            B := false
+            if(S != null)
+            then 
+                p := S
+                do(p->next != null) then
+                    if(p->elem = E) then
+                        B := true
+                    fi
+                    p := p->next
+                od
+        end fun
+
+        fun is_init(S: Set of T) ret B: Bool
+            /*is_init(S)*/
+            if(S = null)
+            then B := true
+            else B := false
+        end fun
+
+        fun bind(S1: Set of T, S2: Set of T) ret S3: Set of T
+            init(S3)
+            if(not is_init(S2))
+            then    
+                var p: pointer to (Node of T)
+                p := S2
+                do(p->next != null) then
+                    adde(p->elem, S3)
+                    p := p->next
+                od
+                
+                p := S1
+                do(p->next != null) then
+                    if(not it_belongs(S2, p->elem))
+                    then adde(p->elem, S3)
+                od
+            else
+                S3 := S1
+            fi
+        end fun
+
+        fun insert(S1: Set of T, S2: Set of T) ret S3: Set of T
+            init(S3)
+            if(not is_init(S2))
+            then    
+                var p: pointer to (Node of T)
+                p := S2
+                do(p->next != null)
+                    if(it_belongs(S1, p->elem))
+                    then adde(p->elem, S3)
+                    p := p->next
+                od
+            fi
+        end fun
+        
+        fun difference(S1: Set of T, S2: Set of T) ret S3: Set of T
+            init(S3)
+            if(not is_init(S2))
+            then    
+                var p: pointer to (Node of T)
+                p := S2
+                do(p->next != null) then
+                    if(not it_belongs(S1, p->elem))
+                    then adde(p->elem, S3)
+                    p := p->next
+                od
+                
+                p := S1
+                do(p->next != null) then
+                    if(not it_belongs(S2, p->elem))
+                    then adde(p->elem, S3)
+                    p := p->next
+                od
+            else
+                S3 := S1
+            fi
+        end fun

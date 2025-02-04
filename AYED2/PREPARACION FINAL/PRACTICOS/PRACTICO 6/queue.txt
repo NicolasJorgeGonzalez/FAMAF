@@ -1,0 +1,30 @@
+implement Queue of T where
+
+type Queue of T = tuple
+                        elems : array[0..N-1] of T
+                        size : nat
+                  end tuple
+
+fun empty_queue() ret q : Queue of T
+    q.size := 0
+end fun
+
+proc enqueue (in/out q : Queue of T, in e : T)
+    q.elem[q.size] := e 
+    q.size := q.size + 1
+end proc
+
+fun is_empty_queue(q : Queue of T) ret b : Bool
+    b := (q.size = 0)
+end fun
+
+fun first(q : Queue of T) ret e : T
+    e := q.elem[0]
+end fun
+
+proc dequeue (in/out q : Queue of T)
+    for i := 0 to q.size - 2 do
+        q.elem[i] := q.elem[i + 1]
+    od
+    q.size := q.size - 1
+end proc

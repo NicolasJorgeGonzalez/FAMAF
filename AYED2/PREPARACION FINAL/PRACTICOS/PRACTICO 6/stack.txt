@@ -1,0 +1,24 @@
+implement Stack of T where
+
+type Stack of T = List of T
+
+fun empty_stack() ret s : Stack of T
+    s := empty()
+end fun
+
+proc push (in e : T, in/out s : Stack of T)
+    addl(e, s)
+end proc
+
+fun is_empty_stack(s : Stack of T) ret b : Bool
+    b := is_empty(s)
+end fun
+
+fun top(s : Stack of T) ret e : T
+    e := head(s)
+end fun
+
+proc pop (in/out s : Stack of T)
+    tail(s)
+end proc
+

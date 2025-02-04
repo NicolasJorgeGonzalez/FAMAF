@@ -64,25 +64,17 @@ spec Tablero where
 
         proc decr_n_A(in/out T: Tablero, in N: nat)
             for i := 1 to N do
-                if (not is_init(T->A)) 
-                then
-                    decr(T->A)
-                else
-                    break
-                fi
+                decr(T->A)
             od
         end proc
+        {-PREC: N <= T->A-}
 
         proc decr_n_A(in/out T: Tablero, in N: nat)
             for i := 1 to N do
-                if (not is_init(T->B)) 
-                then
-                    decr(T->B)
-                else
-                    break
-                fi
+                decr(T->B)
             od
         end proc
+        {-PREC: N <= T->B-}
 
 /*spec with tuple of nats*/
 spec Tablero where
