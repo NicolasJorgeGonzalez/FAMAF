@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 typedef struct s_queue * queue;
-
+typedef struct s_node * nodes;
 typedef int queue_elem;
 
 queue queue_empty(void);

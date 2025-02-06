@@ -6,15 +6,15 @@
 #define MAX_LENGTH 1820
 
 char *string_clone(const char *str, size_t length) {
-    char clon[MAX_LENGTH];
-    char *output=clon;
-    for (size_t i=0; i<length;i++) {
+    char *output= malloc(length + 1);
+    for (size_t i=0; i<length;i++) 
+    {
         output[i] = str[i];
     }
+    /*El error principal es que la variable clon es un array local definido dentro de la función, lo que significa que su memoria se asigna en la pila (stack). Cuando la función termina, esta memoria deja de ser válida, por lo que output apunta a una zona de memoria que ya no es accesible.*/
     output[length] = '\0';
     return output;
 }
-
 
 int main(void) {
     char original[]=""
@@ -67,6 +67,8 @@ int main(void) {
     copy[5] = 'g';
     printf("Copia   :\n" ANSI_CYAN
            " %s\n", copy);
+
+    free(copy);
 
     return EXIT_SUCCESS;
 }

@@ -43,7 +43,6 @@ char *parse_filepath(int argc, char *argv[]) {
     return result;
 }
 
-
 int main(int argc, char *argv[]) {
     char *filepath = NULL;
 
@@ -51,12 +50,17 @@ int main(int argc, char *argv[]) {
     filepath = parse_filepath(argc, argv);
     
     // parse the file and returns the loaded queue
-    queue q=queue_from_file(filepath);
+    queue q = queue_from_file(filepath);
     
     /*dumping the queue */
-    printf("length: %u\n", queue_size(q));
+    q = queue_user_disscard(q);
     queue_dump(q, stdout);
-    
+
+    // /* test of queue_discard() */
+    // printf("Se elimino de la cola el elemento 2;");
+    // queue_disscard(q, 2);
+    // queue_dump(q, stdout);
+
     q = queue_destroy(q);
     return EXIT_SUCCESS;
 }
