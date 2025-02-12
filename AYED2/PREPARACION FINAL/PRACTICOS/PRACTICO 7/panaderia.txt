@@ -1,0 +1,34 @@
+
+type Pieza : tuple
+                minimo : int
+                maximo : int
+             end tuple
+
+fun panaderia (piezas : Set of Pieza) ret resultado : int
+    var aux : Set of Pieza
+    var pieza : Pieza
+    var i : int
+    
+    resultado := 0
+    aux := set_copy(piezas)
+
+    do (not is_empty_set(aux)) then
+        var aux2 : Set of pieza
+
+        pieza_menor := seleccionar_menor(aux)
+        aux2 := set_copy(aux)
+        elim(aux2, pieza)
+        
+        do (not is_empty_set(aux2)) then
+            var pieza_aux : Pieza
+
+            pieza_aux := get(aux2)
+            elim(aux2, pieza_aux)
+            
+            if (pieza_aux.minimo <= pieza_menor.maximo) then
+                elim(aux, pieza_aux)
+            fi
+        od
+        resultado := resultado + 1
+    od
+end fun

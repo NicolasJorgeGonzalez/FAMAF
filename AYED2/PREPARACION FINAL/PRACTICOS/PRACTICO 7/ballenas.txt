@@ -1,0 +1,47 @@
+Vamos a tomar como criterio de seleccion la ballena con menor tiempo de vida, para asi poder salvar a la mayor cantidad de ballenas posibles. 
+Pues si elegimos a la que mas tiempo de vida le queda, no estariamos aprovechando ese tiempo en rescatar otra.
+
+type Ballena : Tuple
+                    id : int
+                    tiempo : float
+               end Tuple
+
+fun rascate (b : Set of Ballena, T : float) ret res_optimo : List of Ballena
+     var aux : Set of Ballena
+     var ballena_actual : Ballena
+     var tiempo_actual : float
+
+     tiempo_actual := 0
+     aux := set_copy(b)
+     do (not is_empty_set(aux)) then
+        ballena_actual := seleccionar_ballena(aux)
+        if (ballena_actual.tiempo >= tiempo_actual)
+            then
+                addl(ballena_actual, res_optimo)
+                tiempo_actual := tiempo_actual + (2 * T)
+        fi
+        elim(aux, ballena_actual)
+    od
+end fun
+
+fun seleccionar_ballena (b : Set of Ballena) ret result : Ballena
+    var aux : Set of Ballena
+    var min : float
+    var ballena : Ballena
+
+    aux := set_copy(b)
+    min := ∞
+
+    do (not is_empty_set(aux)) then
+        ballena := get(aux)
+        elim(aux, ballena)
+        if (ballena.tiempo < min) then
+            min := ballena.tiempo
+            result := ballena
+        fi
+    od
+end fun 
+
+El algoritmo toma de el conjunto de ballenas la que menos de tiempo de vida tenga, si aun sigue viva la rescata.
+Sino elige a la siguiente y asi mismo hasta rescatar al maximo de ballenas posibles.
+

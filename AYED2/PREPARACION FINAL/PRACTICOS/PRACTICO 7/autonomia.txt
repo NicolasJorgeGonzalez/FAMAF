@@ -1,0 +1,20 @@
+type Localidades : tuple
+                        nombre : string
+                        distancia : float
+                   end tuple
+
+fun autonomia (L : array[0..N] of Localidades, A : float) ret cargas : List of Localidades
+    cargas := empty()
+    addl(L[0], cargas)
+
+    var resto : float
+    resto := A /*Pues ya cargamos conbustible en L[0].nombre*/
+
+    for i := 1 to (N - 1) do
+        resto := resto - L[i].distancia
+        if(resto < L[i + 1].distancia)
+          then
+                addl(L[i], cargas)
+                resto := A        
+    od
+end fun

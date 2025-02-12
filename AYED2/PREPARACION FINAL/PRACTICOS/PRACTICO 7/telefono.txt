@@ -1,0 +1,41 @@
+type Amigo : Tuple
+                partida : int
+                llegada : int
+             end  Tuple
+
+fun prestar_celular (amigos : Set of Amigo) ret resultado : List of Amigo
+    
+    var tiempo_transcurrido : int
+    var aux : Set of Amigo
+
+    tiempo_transcurrido := 0
+    aux := set_copy(amigos)
+
+    do (not is_empty_set(aux)) then
+        var amigo : Amigo
+        amigo : seleccionar_amigo
+        if (amigo.partida >= tiempo_actual) then
+            addl(resultado, amigo)
+            tiempo_actual := amigo.llegada + 1
+        fi
+        elim(aux, amigo)
+    od
+end fun
+
+fun seleccionar_amigo (amigos : Set of Amigo) ret resultado : Amigo
+    var aux : Set of Amigo
+    var amigo : Amigo
+    var min : int
+
+    min := ∞
+    aux := set_copy(amigos)
+
+    do (not is_empty_set(aux)) then
+        amigo := get(aux)
+        elim(aux, amigo)
+        if (amigo.llegada < min) then
+            min := amigo.llegada
+            resultado := amigo
+        fi
+    od
+end fun

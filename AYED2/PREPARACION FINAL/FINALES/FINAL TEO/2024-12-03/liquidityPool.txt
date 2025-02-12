@@ -1,0 +1,111 @@
+spec LiquidityPool where
+                                
+    constructors
+        fun nueva_lp (moneda1 : string, moneda2 : string, cambio : real) ret new_lp : LiquidityPool
+        {-Crea una LiquidityPool nueva-}
+
+    destroy
+        fun destroy (lp : LiquidityPool) ret nlp : LiquidityPool
+        {-Destruye lp, liberando memoria en caso de ser necesario-}
+
+    operators
+
+        proc añadir_l (in/out lp : LiquidityPool, in cant1 : real, in cant2 : real)
+        {-Añade liquidez a la LiquidityPool-}
+        {-PRE: ((cant1 = cant2 / tasa_camb(lp)) && (cant2 = cant1 * tasa_camb(lp)))-}
+
+        fun mon1 (lp : LiquidityPool) ret nombre : string
+        {-Consulta el nombre de la Moneda1-}
+
+        fun mon2 (lp : LiquidityPool) ret nombre : string
+        {-Consulta el nombre de la Moneda2-}
+
+        fun cant_mon1 (lp : LiquidityPool) ret cantidad : float
+        {-Consulta la cantidad que hay de Moneda1-}
+
+        fun cant_mon2 (lp : LiquidityPool) ret cantidad : float
+        {-Consulta la cantidad que hay de Moneda2-}
+
+        fun tasa_camb (lp : LiquidityPool) ret tasa : float
+        {-Consulta la tasa de cambio-}
+
+        proc inter_mon1 (in/out lp : LiquidityPool, in cant : float, out result : float)
+        {-Intercambiar Mondeda 1 por Moneda 2-}
+
+        proc inter_mon2 (in/out lp : LiquidityPool, in cant : float, out result : float)
+        {-Intercambiar Mondeda 2 por Moneda 1-}
+
+implement LiquidityPool where
+
+    type LiquidityPool = tuple
+                                Moneda1 : string
+                                Moneda2 : string
+                                Cant1 : float
+                                Cant2 : float
+                                Cambio : float
+                         end tuple
+
+    constructors
+
+        fun empty_LP (moneda1 : string, moneda2 : string, cambio : real) ret new_lp : LiquidityPool
+
+            new_lp.Moneda1 := moneda1
+            new_lp.Cant1 := 0
+            new_lp.Moneda2:= moneda2
+            new_lp.Cant2 := 0
+            new_lp.Cambio  := cambio
+
+        end fun
+
+        proc añadir_l (in/out lp : LiquidityPool, in cant1 : real, in cant2 : real)
+            lp.Cant1 := cant1
+            lp.Cant2 := cant2
+        end proc
+
+        fun mon1 (lp : LiquidityPool) ret nombre : string
+            nombre := lp.Moneda1
+        end fun
+
+        fun mon2 (lp : LiquidityPool) ret nombre : string
+            nombre := lp.Moneda2
+        end fun
+
+        fun cant_mon1 (lp : LiquidityPool) ret cantidad : float
+            cantidad := lp.Cant1
+        end fun
+
+        fun cant_mon2 (lp : LiquidityPool) ret cantidad : float
+            cantidad := lp.Cant2
+        end fun
+
+        fun tasa_camb (lp : LiquidityPool) ret tasa : float
+            tasa := lp.Cambio
+        end fun
+
+        proc inter_mon1 (in/out lp : LiquidityPool, in cant : float, out result : float)
+            if (cant * tasa_camb(lp) > cant_mon2(lp)) then
+                result := 0
+            else
+                lp.Cant1 := cant_mon1(lp) + cant
+                lp.Cant2 := cant_mon2(lp) - (cant * tasa_camb(lp))
+                result   := cant * tasa_camb(lp)
+        end proc
+
+        proc inter_mon2 (in/out lp : LiquidityPool, in cant : float, out result : float)
+            if (cant / tasa_camb(lp) > cant_mon1(lp)) then
+                result := 0
+            else
+                lp.Cant2 := cant_mon2(lp) + cant
+                lp.Cant1 := cant_mon1(lp) - (cant / tasa_camb(lp))
+                result   := cant / tasa_camb(lp)
+        end proc
+
+        proc dobleintercambio (in/out lp1,lp2 : LiquidityPool, in q1 : float, out q2: float)
+            if ((mon1(lp1) = mon2(lp2)) && (q1 * tasa_camb(lp2) <= cant_mon2(lp2))) then
+                var prim_inter : float
+                inter_mon1(lp1, q1, prim_inter)
+                inte_mon1(lp2, prim_inter, q2)
+            else
+                q2 := 0
+            fi
+        end proc

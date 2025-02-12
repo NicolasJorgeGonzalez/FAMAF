@@ -1,0 +1,19 @@
+Parametros:
+    H Cantidad de harina utilizable
+    n Cantidad de pedidos
+    m1, m2, ..., mn Importes
+    h1, h2, ..., hn Harina requerida
+    Objetivo: Ganar la mayor cantidad de dinero utilizando la harina H
+Especificacion:
+    panaderia(h, p) = "maximo dinero ganado tras vender los pedidos {1..p}, 
+                       teniendo disponibe la cantadidad h de harina"
+
+Llamada principal:
+    panaderia(H,n)
+
+Definición recursiva:
+    panaderia(h, p) = (
+                        0   Si h = 0 || p = 0
+                        panaderia(h, p - 1)   Si hp > h
+                        max(panaderia(h - hp, p - 1) + mp, panaderia(h, p - 1))   En otro caso
+    )

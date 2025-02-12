@@ -1,0 +1,97 @@
+implement Tree of T where
+
+    type Node of T = tuple
+                        left: pointer to (Node of T)
+                        value: T
+                        right: pointer to (Node of T)
+                     end tuple
+
+    type Tree of T = pointer to (Node of T)
+
+    fun empty_tree() ret t : Tree of T
+        t := null
+    end fun
+
+    fun node (tl : Tree of T, e : T, tr : Tree of T) ret t : Tree of T
+        alloc(t)
+        t->value := e
+        t->left := tl
+        t->right := tr
+    end fun
+
+    fun is_empty_tree(t : Tree of T) ret b : Bool
+        b := (t = null)
+    end fun
+
+    fun root(t : Tree of T) ret e : T
+        e := t->value
+    end fun 
+
+    fun left(t : Tree of T) ret tl : Tree of T
+        tl := t->left
+    end fun
+
+    fun right(t : Tree of T) ret tr : Tree of T
+        tr := t->right
+    end fun
+
+    fun height(t : Tree of T) ret n : Nat
+        if (is_empty_tree(t)) then
+            n := 0
+        else
+            n := 1 + max(height(left(t)), height(right(t)))
+        fi
+    end fun
+
+    fun is_path(t : Tree of T, p : Path) ret b : Bool
+        var q: pointer to (Node of T)
+        q := t
+        b := true
+
+        var i : Nat
+        i := 0
+        while (i < length(p) && q != null) do
+            if (p[i] = Left) then
+                q := q->left
+            else
+                q := q->right
+            fi
+            i := i + 1
+        od
+
+        if (q = null) then
+            b := false
+        fi
+    end fun
+
+    fun subtree_at(t : Tree of T, p : Path) ret t0 : Tree of T
+        if (is_path(t, p)) then
+            var q: pointer to (Node of T)
+            q := t
+
+            var i : Nat
+            i := 0
+            while (i < length(p)) do
+                if (p[i] = Left) then
+                    q := q->left
+                else
+                    q := q->right
+                fi
+                i := i + 1
+            od
+
+            t0 := q
+        else
+            t0 := null
+        fi
+    end fun
+
+    fun elem_at(t : Tree of T, p : Path) ret e : T
+        t := subtree_at(t, p)
+
+        if (t = null) then
+            error("El camino no lleva a un nodo válido")  // Manejo de error
+        else
+            e := t->value
+        fi
+    end fun

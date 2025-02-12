@@ -1,0 +1,49 @@
+implement Set of T : tuple
+                        elems : array[0..N-1] of T
+                        size : nat
+                     end tuple
+
+    Constructors
+
+        fun empty_set() ret s : Set of T
+            s.size := 0
+        end fun
+
+        proc add(in e : T, in/out s: Set of T)
+            s.elems[size] := e
+            s.size := s.size + 1
+        end proc
+
+    Operators
+
+        fun member(e : T, s: Set of T) ret b : Bool
+            b := false
+            for i := 0 to s.size do
+                if(s.elems[i] = e) then
+                    b := true
+                fi
+            od
+        end fun
+
+        proc inters(in/out s : Set of T, in s0 : Set of T)
+            for i := 0 to s.size do
+                if(not member(s.elems[i], s0)) then
+                    elim(s, s.elems[i])
+                fi
+            od
+        end proc
+
+        proc elim(in/out s : Set of T, in e : T)
+            var aux : Bool
+            var i : int
+
+            aux := false
+            i := 0
+            do(aux != true)
+                if(s.elems[i] = e) then
+                    s.elems[i] := 0
+                    aux := true
+                fi
+            od
+            s.size := s.size - 1
+        end proc

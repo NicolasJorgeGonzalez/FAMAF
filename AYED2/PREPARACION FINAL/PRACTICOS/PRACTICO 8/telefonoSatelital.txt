@@ -1,0 +1,24 @@
+Parametros:
+    
+    n amigos
+    p1, p2, ..., pn
+    r1, r2, ..., rn
+    m1, m2, ..., ,mn
+
+Especificacion:
+    
+    amigos(a, f) = "La mayor cantidad de dinero ganado tras prestar el telefono a ciertos amigos {1..a} cuya fecha de partida sea mayor a f"    
+
+Llamada principal:
+    
+    amigo(n, 0)
+
+Definición recursiva:
+    
+    amigo(a, f) = (
+                    0 Si a = 0
+                    
+                    amigo(a - 1, f) Si pa < f
+
+                    max(amigo(a - 1, ra) + ma, amigo(a - 1, f)) En otros casos
+    )

@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "stringbuffer.h": "c",
-        "stdio.h": "c"
-    }
-}

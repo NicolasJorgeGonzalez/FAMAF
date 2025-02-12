@@ -1,0 +1,26 @@
+Parametros:
+    B Esfuerzo maximo de brazo.
+    Z Esfuerzo maximo de zona media.
+    P Esfuerzo maximo de pierna.
+    n Cantidad de ejercicios.
+    e1, e2, ..., en Valor de cada ejercicio.
+    b1, b2, ..., bn Esfuerzo de brazo.
+    z1, z2, ..., zn Esfuerzo de zona media.
+    p1, p2, ..., pn Esfuerzo de pierna.
+
+Llamada principal:
+
+    gimnacio(n, B, Z, P)
+
+Especificacion:
+    
+    gimnacio(e, fb, fm, fp) = "maximo valor de entrenamiento realizando los ejercicios {1..e},
+                               sin superar los valores maximos fb, fm, fp".
+
+Definicion:
+
+    gimnacio(e, fb, fm, fp) = (
+                                | 0 Si e = 0
+                                | gimnacio(e - 1, fb, fm, fp) Si be > fb || ze > fz || pe > fp
+                                | max(gimnacio(e - 1, fb - be, fm - ze, fp - pe) + ee, gimnacio(e - 1, fb, fm, fp)) En otro caso
+    )

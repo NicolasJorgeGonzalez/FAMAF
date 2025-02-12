@@ -1,0 +1,23 @@
+Parametros:
+
+    n Objetos 
+    p1, p2, ..., pn Pesos
+    v1, v2, ..., vn Valores
+    P Peso necesario de perder
+
+Especificacion:
+
+    globo(o, d) = "menor valor valor posible que se pierde desechando los objetos {1..o}
+                 teniendo que desechar d peso"
+
+Llamada principal:
+
+    globo(n, P)
+
+Definición recursiva: 
+
+    globo(o,d) = (
+                    0   Si d = 0
+                    ∞   Si o = 0 && d > 0
+                    min(globo(o - 1,d - po) + v0, globo(o - 1, d))
+    )
