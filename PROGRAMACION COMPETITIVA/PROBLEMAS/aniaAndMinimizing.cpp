@@ -17,24 +17,20 @@ int main(){
     string s;
     cin >> s;
 
-    while((k != 0) && (i != n) && (s[0] > 1))
+    while((k != 0) && (i != n))
     {
-        if ((int)s[0] > 1)
+        if (s[0] != 1)
         {
-            s[0] = (int)s[0] - 1;
+            s[0] = 1;
             k--;
-
         }
         else
         {
-            if ((int)s[i] != 0)
+            i++;
+            if (s[i] != 0)
             {
-                s[i] = (int)s[i] - 1;
+                s[i] = 0;
                 k--;
-            }
-            else
-            {
-                i++;
             }
         }
     }
