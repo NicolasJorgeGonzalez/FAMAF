@@ -7,10 +7,6 @@
 [submodule "PARADIGMAS-DE-PROGRAMACION/LAB01/paradigmas25-g07-lab1"]
 	path = PARADIGMAS-DE-PROGRAMACION/LAB01/paradigmas25-g07-lab1
 	url = git@github.com:Paradigmas25-g07/paradigmas25-g07-lab1.git
-[submodule "PARADIGMAS DE PROGRAMACION/LAB01/paradigmas25-g07-lab1"]
-	path = PARADIGMAS DE PROGRAMACION/LAB01/paradigmas25-g07-lab1
-	url = git@github.com:Paradigmas25-g07/paradigmas25-g07-lab1.git
-	branch = main
 [submodule "PARADIGMAS DE PROGRAMACION/LAB02/paradigmas25-g07-lab2"]
 	path = PARADIGMAS DE PROGRAMACION/LAB02/paradigmas25-g07-lab2
 	url = git@github.com:Paradigmas25-g07/paradigmas25-g07-lab2.git
