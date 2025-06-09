@@ -1,3 +1,6 @@
 [submodule "PARADIGMAS-DE-PROGRAMACION/LAB03/paradigmas25-g07-lab3"]
 	path = PARADIGMAS-DE-PROGRAMACION/LAB03/paradigmas25-g07-lab3
 	url = git@github.com:Paradigmas25-g07/paradigmas25-g07-lab2.git
+[submodule "PARADIGMAS-DE-PROGRAMACION/LAB02/paradigmas25-g07-lab2"]
+	path = PARADIGMAS-DE-PROGRAMACION/LAB02/paradigmas25-g07-lab2
+	url = git@github.com:Paradigmas25-g07/paradigmas25-g07-lab2.git
