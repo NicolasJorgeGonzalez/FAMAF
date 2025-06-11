@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="encriptador" default="jar" basedir=".">
+
+    <property name="src.dir"     value="src"/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="lib.dir"     value="lib"/>
+    <property name="dist.dir"    value="dist"/>
+    <property name="jar.name"    value="encriptador.jar"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean" description="Elimina los directorios de compilación y distribución">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="init" depends="clean" description="Crea los directorios de compilación">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="init" description="Compila el código fuente Java">
+        <javac srcdir="${src.dir}"
+               destdir="${classes.dir}"
+               classpathref="classpath"
+               debug="on"
+               includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile" description="Crea el archivo JAR ejecutable">
+        <jar destfile="${dist.dir}/${jar.name}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="com.ehrian.encriptador.Encriptador"/>
+            </manifest>
+            <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar" description="Ejecuta la aplicación JAR">
+        <java jar="${dist.dir}/${jar.name}" fork="true"/>
+    </target>
+
+</project>
