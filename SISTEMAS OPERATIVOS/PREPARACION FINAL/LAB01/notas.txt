@@ -1,0 +1,1 @@
+Terminamos command.c, y pasa todos los test.
